@@ -2,6 +2,9 @@ Vleet
 ============
 > Virtual fLeet of system simulator for AirVantage platform
 
+
+[![Build Status](https://travis-ci.org/airvantage/vleet.svg?branch=master)](https://travis-ci.org/airvantage/vleet)
+
 ## Usage
 
 ### Installation
