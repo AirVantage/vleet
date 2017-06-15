@@ -1,50 +1,53 @@
 {
-    "name": "vleet",
-    "version": "0.0.1",
-    "description": "AirVantage systems fleet simulator",
-    "repository": "airvantage/vleet",
-    "author": {
-        "name": "Sebastien Moran",
-        "email": "smoran@sierrawireless.com"
+  "name": "vleet",
+  "version": "0.1.0",
+  "description": "AirVantage systems fleet simulator",
+  "repository": "airvantage/vleet",
+  "author": {
+    "name": "Sebastien Moran",
+    "email": "smoran@sierrawireless.com"
+  },
+  "maintainers": [
+    {
+      "name": "Robert Jacolin",
+      "email": "rjacolin@sierrawireless.com"
     },
-    "maintainers": [{
-        "name": "Robert Jacolin",
-        "email": "rjacolin@sierrawireless.com"
-    }, {
-        "name": "François Couadau",
-        "email": "fcouadau@sierrawireless.com"
-    }],
-    "license": "MIT",
-    "bin": "cli.js",
-    "engines": {
-        "node": ">=4"
-    },
-    "scripts": {
-        "test": "ava"
-    },
-    "keywords": [
-        "airvantage",
-        "system",
-        "fleet",
-        "simulator",
-        "mqtt"
-    ],
-    "dependencies": {
-        "airvantage": "^2.1.0",
-        "bluebird": "^3.5.0",
-        "chance": "^0.7.6",
-        "commander": "^2.9.0",
-        "conzole": "^0.2.0",
-        "csv-stringify": "^1.0.4",
-        "jsonfile": "^2.2.3",
-        "lodash": "^3.10.1",
-        "moment": "^2.10.6",
-        "mqtt": "^1.3.5"
-    },
-    "devDependencies": {
-        "ava": "^0.19.1",
-        "eslint-plugin-ava": "^4.2.0",
-        "grunt": "^1.0.1",
-        "grunt-release": "^0.14.0"
+    {
+      "name": "François Couadau",
+      "email": "fcouadau@sierrawireless.com"
     }
+  ],
+  "license": "MIT",
+  "bin": "cli.js",
+  "engines": {
+    "node": ">=4"
+  },
+  "scripts": {
+    "test": "ava"
+  },
+  "keywords": [
+    "airvantage",
+    "system",
+    "fleet",
+    "simulator",
+    "mqtt"
+  ],
+  "dependencies": {
+    "airvantage": "^2.1.0",
+    "bluebird": "^3.5.0",
+    "chance": "^0.7.6",
+    "commander": "^2.9.0",
+    "conzole": "^0.2.0",
+    "csv-stringify": "^1.0.4",
+    "jsonfile": "^2.2.3",
+    "lodash": "^3.10.1",
+    "moment": "^2.10.6",
+    "mqtt": "^1.3.5"
+  },
+  "devDependencies": {
+    "ava": "^0.19.1",
+    "eslint-plugin-ava": "^4.2.0",
+    "grunt": "^1.0.1",
+    "grunt-release": "^0.14.0"
+  }
 }
