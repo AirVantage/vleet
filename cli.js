@@ -4,6 +4,7 @@
 const _ = require('lodash');
 const AirVantage = require('airvantage');
 const conzole = require('conzole');
+const fs = require('fs');
 const jsonfile = require('jsonfile');
 const program = require('commander');
 const splash = require('./lib/splash');
@@ -26,7 +27,16 @@ const clean = program.clean;
 const customSetupFile = program.args && program.args[0];
 const setupFile = customSetupFile || 'setup.json';
 const setup = jsonfile.readFileSync(`./${setupFile}`);
-const serverConfig = jsonfile.readFileSync(`${__dirname}/config/airvantage/${setup.dataCenter}.json`);
+
+let serverConfig;
+// First check for a local datacenter config
+try {
+    serverConfig = jsonfile.readFileSync(`./config/${setup.dataCenter}.json`);
+} catch (error) {
+    // Otherwise take the default one
+    serverConfig = jsonfile.readFileSync(`${__dirname}/config/${setup.dataCenter}.json`);
+}
+
 const credentials = _.extend({}, setup.credentials, serverConfig.credentials);
 const simulation = jsonfile.readFileSync(`./simulations/${setup.simulation}.json`);
 
