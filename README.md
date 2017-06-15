@@ -51,6 +51,8 @@ This file is divided is multiple blocks. A full example is available as a templa
 - `name`
 - `simulationLabel`: Will be added to all the resources that will be created on AirVantage (System, Gateway, Application). 
     - :warning: Will be used by `clean`  command to delete all the simulated resources.
+- `labels`(optional): By default each resource is created with the `simulationLabel` but sometimes you may need to add more than one label. You can provide an array of labels to add. 
+    + :warning: For the moment you have to include the `simulationLabel` in that list.
 
 ### fleet
 >Fleet description
