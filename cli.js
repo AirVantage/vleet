@@ -26,7 +26,17 @@ const clean = program.clean;
 
 const customSetupFile = program.args && program.args[0];
 const setupFile = customSetupFile || 'setup.json';
-const setup = jsonfile.readFileSync(`./${setupFile}`);
+let setup;
+try {
+    setup = jsonfile.readFileSync(`./${setupFile}`);
+} catch (error) {
+    let errorMessage = `'${setupFile}' could not be found.`
+    if (!customSetupFile) {
+        errorMessage = 'You did not provide any specific setup file and no setup.json file has been found.';
+    }
+    conzole.failed(errorMessage);
+    return 1;
+}
 
 let serverConfig;
 // First check for a local datacenter config
@@ -39,6 +49,7 @@ try {
 
 const credentials = _.extend({}, setup.credentials, serverConfig.credentials);
 const simulation = jsonfile.readFileSync(`./simulations/${setup.simulation}.json`);
+
 
 splash({ clean, setupFile, setup, credentials, simulation });
 
