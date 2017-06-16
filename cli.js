@@ -30,7 +30,7 @@ let setup;
 try {
     setup = jsonfile.readFileSync(`./${setupFile}`);
 } catch (error) {
-    let errorMessage = `'${setupFile}' could not be found.`
+    let errorMessage = `Something went wrong: ${error.stack}`;
     if (!customSetupFile) {
         errorMessage = 'You did not provide any specific setup file and no setup.json file has been found.';
     }
