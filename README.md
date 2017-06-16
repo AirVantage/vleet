@@ -8,7 +8,12 @@ Vleet
 ## Usage
 
 ### Installation
-Install vleet globally with `npm i -g vleet` or `yarn global add vleet`
+1. [Download](https://nodejs.org/en/download/) & install NodeJS
+2. From the command line, install vleet globally
+
+```console
+$ npm install -g vleet
+```
 
 ### Set up your simulation
 Create a folder to store your simulation(s) configuration files
