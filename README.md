@@ -26,7 +26,7 @@ Let's say you want to simulate an alarm system, create a `alarmSystem.json` file
 #### Final setup
 1. Create a `setup.json` out of the [setup.json.template](setup.json.template) file.
 2. Provide the name of the simulation you want to run (name of the one you created in [simulations](simulations))
-3. Select the AirVantage DataCenter you target: `eu` or `na`
+3. Select the AirVantage DataCenter you target: `eu`, `na`, `qa` or `dev1`
 4. Provide your (or a technical user) credentials on the selected AirVantage DataCenter.
 
 ### Launch the simulation

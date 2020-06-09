@@ -1,0 +1,7 @@
+ {
+     "server": "qa.airvantage.io",
+     "credentials": {
+         "client_id": "dbc8429b7cdb43a7b5d1dae7fc66d674",
+         "client_secret": "9cc964c11c404f8e9000317321c9be90"
+     }
+ }
