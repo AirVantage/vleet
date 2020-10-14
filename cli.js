@@ -4,7 +4,7 @@
 const _ = require('lodash');
 const AirVantage = require('airvantage');
 const conzole = require('conzole');
-const fs = require('fs');
+const getToken = require('./lib/gettoken');
 const jsonfile = require('jsonfile');
 const program = require('commander');
 const splash = require('./lib/splash');
@@ -50,12 +50,12 @@ try {
 const credentials = _.extend({}, setup.credentials, serverConfig.credentials);
 const simulation = jsonfile.readFileSync(`./simulations/${setup.simulation}.json`);
 
-
 splash({ clean, setupFile, setup, credentials, simulation });
 
 const Simulator = require('./lib/simulator');
+const isLocal = !!serverConfig.authFrontServer;
 const airvantage = new AirVantage({
-    serverUrl: `https://${serverConfig.server}`,
+    serverUrl: isLocal ? `http://${serverConfig.server}` : `https://${serverConfig.server}`,
     credentials: credentials,
     companyUid: setup.companyUid,
     debug: true
@@ -68,7 +68,6 @@ const simulator = new Simulator({
     configuration: { server: serverConfig.server }
 });
 
-
 function getSimulationLabel() {
     if (simulation.simulationLabel) {
         return [simulation.simulationLabel];
@@ -77,24 +76,37 @@ function getSimulationLabel() {
     return [simulation.label];
 }
 
-airvantage.authenticate()
-    .then(function() {
+return new Promise((resolve, reject) => {
+    if (!!serverConfig.authFrontServer) {
+        conzole.quote(`Auth Front "${serverConfig.authFrontServer}"`);
+        return getToken({
+            authFrontServer: serverConfig.authFrontServer,
+            credentials
+        }).then((token) => {
+            if (!!token) {
+                return airvantage.authenticate({ token }).then(resolve);
+            }
+            reject(new Error(`Unable to get token from ${serverConfig.authFrontServer}`));
+        });
+    }
+    return airvantage.authenticate().then(resolve);
+})
+    .then(() => {
         conzole.done('Authenticated');
         if (clean || simulation.clean) {
             return factory.clean();
         } else {
-            return factory.initialize()
-                .then(function() {
+            return factory
+                .initialize()
+                .then(() => {
                     conzole.start('Start simulation - ', getSimulationLabel()[0]);
                     return airvantage.querySystems({ labels: getSimulationLabel() });
                 })
-                .then(function(systems) {
+                .then((systems) => {
                     conzole.quote('For ', systems.length, 'systems');
                     return simulator.start(systems);
                 })
-                .then(function() {
-                    conzole.ln().title('Simulation succeeded');
-                });
+                .then(() => conzole.ln().title('Simulation succeeded'));
         }
     })
-    .catch(error => conzole.failed('ERROR:', error.response ? error.response.body : error.stack));
+    .catch((error) => conzole.failed('ERROR:', error.response ? error.response.body : error.stack));
