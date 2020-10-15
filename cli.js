@@ -77,7 +77,7 @@ function getSimulationLabel() {
 }
 
 return new Promise((resolve, reject) => {
-    if (!!serverConfig.authFrontServer) {
+    if (isLocal) {
         conzole.quote(`Auth Front "${serverConfig.authFrontServer}"`);
         return getToken({
             authFrontServer: serverConfig.authFrontServer,
