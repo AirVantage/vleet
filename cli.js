@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
 'use strict';
-const _ = require('lodash');
 const AirVantage = require('airvantage');
 const conzole = require('conzole');
 const getToken = require('./lib/gettoken');
@@ -47,7 +46,7 @@ try {
     serverConfig = jsonfile.readFileSync(`${__dirname}/config/${setup.dataCenter}.json`);
 }
 
-const credentials = _.extend({}, setup.credentials, serverConfig.credentials);
+const credentials = Object.assign({}, setup.credentials, serverConfig.credentials);
 const simulation = jsonfile.readFileSync(`./simulations/${setup.simulation}.json`);
 
 splash({ clean, setupFile, setup, credentials, simulation });
